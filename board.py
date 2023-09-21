@@ -19,12 +19,12 @@ class Board:
         self.x_plays = not self.x_plays
 
     def generate_moves(self):
-        combined_board = self.x_board | self.y_board
+        combined_board = self.x_board | self.o_board
         move_pointer = 0b100000000
         moves = []
 
         for i in range(9):
-            if (move_pointer >> i) & combined_board == (move_pointer >> i):
+            if (move_pointer >> i) & combined_board != (move_pointer >> i):
                 moves.append(move_pointer)
 
         return moves
