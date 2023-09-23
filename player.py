@@ -5,7 +5,9 @@ class Player:
         pass
 
     def generate_player_readable_moves(self, computer_readable_moves):
-        return [str(int(9-math.log2(move))) for move in computer_readable_moves]
+        player_readable_moves = [str(int(math.log2(move)) + 1) for move in computer_readable_moves]
+        player_readable_moves.reverse()
+        return player_readable_moves
     
     def generate_computer_readable_moves(self,  player_readable_moves):
         return [0b1 << int(player_readable_move) - 1 for player_readable_move in player_readable_moves]
