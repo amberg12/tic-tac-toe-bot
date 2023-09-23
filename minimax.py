@@ -1,10 +1,8 @@
 import board
 
 class MiniMax_Search:
-    def __init__(self, root):
-        self.root = root
-        moves = root.generate_moves()
-        self.children = self.generate_children(self.root)
+    def __init__(self):
+        pass
         
     def generate_children(self, root_board):
         moves = root_board.generate_moves()
@@ -13,6 +11,33 @@ class MiniMax_Search:
             children.append(board.Board(board=root_board, move=move))
         return children
     
+    def generate_move(self, root_board):
+        moves = root_board.generate_moves()
+        children = []
+        for move in moves:
+            children.append(board.Board(board=root_board, move=move))
+
+        children_scores = []
+        for child in children:
+            children_scores.append(self.minimax(child, not root_board.x_plays))
+
+        best_move = -1
+        
+        if root_board.x_plays:
+            value = -9999
+            for i, child_score in enumerate(children_scores):
+                if value < child_score:
+                    best_move = moves[i]
+                    value = child_score
+        else:
+            value = 9999
+            for i, child_score in enumerate(children_scores):
+                if value > child_score:
+                    best_move = moves[i]
+                    value = child_score
+
+        return best_move
+
     def minimax(self, node, is_maxxing, depth=10):
 
         if node.generate_evaluation() != None:
