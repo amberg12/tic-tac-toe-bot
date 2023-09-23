@@ -40,7 +40,7 @@ class MiniMax_Search:
         print(f"{1000*(time.process_time() - initial_time)}ms to calculate.")
         return best_move
 
-    def minimax(self, node, is_maxxing, depth=10):
+    def minimax(self, node, is_maxxing, depth=10, alpha=-9999, beta=9999):
 
         if node.generate_evaluation() != None:
             return node.generate_evaluation()
@@ -53,11 +53,17 @@ class MiniMax_Search:
         if is_maxxing == True:
             value = -9999
             for child in self.children:
-                value = max(value, self.minimax(child, False, depth=depth-1))
+                value = max(value, self.minimax(child, False, depth=depth-1, alpha=alpha, beta=beta))
+                alpha = max(alpha, value)
+                if beta <= alpha:
+                    break
             return value
         else:
             value = 9999
             for child in self.children:
-                value = min(value, self.minimax(child, True, depth=depth-1))
+                value = min(value, self.minimax(child, True, depth=depth-1, alpha=alpha, beta=beta))
+                beta = min(beta, value)
+                if beta <= alpha:
+                    break
             return value
 
