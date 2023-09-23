@@ -1,4 +1,5 @@
 import board
+import time
 
 class MiniMax_Search:
     def __init__(self):
@@ -12,6 +13,7 @@ class MiniMax_Search:
         return children
     
     def generate_move(self, root_board):
+        initial_time = time.process_time()
         moves = root_board.generate_moves()
         children = []
         for move in moves:
@@ -35,7 +37,7 @@ class MiniMax_Search:
                 if value > child_score:
                     best_move = moves[i]
                     value = child_score
-
+        print(f"{1000*(time.process_time() - initial_time)}ms to calculate.")
         return best_move
 
     def minimax(self, node, is_maxxing, depth=10):
