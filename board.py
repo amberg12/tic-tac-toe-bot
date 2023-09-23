@@ -44,7 +44,7 @@ class Board:
         for win_state in win_states:
             if self.x_board & win_state == win_state:
                 return 1
-            if self.o_board & win_state ==  win_state:
+            if self.o_board & win_state == win_state:
                 return -1
             
         if self.x_board | self.o_board ==  0b111111111:
