@@ -29,6 +29,29 @@ class Board:
 
         return moves
     
+    def generate_evaluation(self):
+        win_states = [
+            0b111000000,
+            0b000111000,
+            0b000000111,
+            0b100100100,
+            0b010010010,
+            0b001001001,
+            0b100010001,
+            0b001010100
+        ]
+
+        for win_state in win_states:
+            if self.x_board & win_state == win_state:
+                return 1
+            if self.o_board & win_state ==  win_state:
+                return -1
+            
+        if self.x_board | self.o_board ==  0b111111111:
+            return 0
+        
+        return None
+    
     def display_board(self):
         if self.x_board & 0b1 == 0b1:
             print("X | ", end="")
